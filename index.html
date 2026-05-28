@@ -1251,7 +1251,33 @@ const DB = {
 /* ================================================================
    3. SAMPLE DATA
 ================================================================ */
+const PRODS0 = [
+  {id:1,  name:'Ciment Portland 50kg', cat:'Matériaux',    code:'QP-001', buy:450,  sell:650,  qty:85,  min:20, em:'🏗️', desc:'Ciment gris haute résistance'},
+  {id:2,  name:'Marteau 500g',          cat:'Outils',       code:'QP-002', buy:350,  sell:550,  qty:25,  min:10, em:'🔨', desc:'Marteau charpentier manche bois'},
+  {id:3,  name:'Clous Galva 3"',        cat:'Fixation',     code:'QP-003', buy:80,   sell:150,  qty:120, min:30, em:'📌', desc:'Boîte 100 clous galvanisés'},
+  {id:4,  name:'Peinture Blanche 5L',   cat:'Peinture',     code:'QP-004', buy:800,  sell:1200, qty:18,  min:10, em:'🎨', desc:'Acrylique blanc intérieur/extérieur'},
+  {id:5,  name:'Tuyau PVC 4"',          cat:'Plomberie',    code:'QP-005', buy:180,  sell:280,  qty:45,  min:15, em:'🪛', desc:'Rigide 4 pouces 3 mètres'},
+  {id:6,  name:'Perceuse 750W',         cat:'Outils',       code:'QP-006', buy:3500, sell:5000, qty:8,   min:5,  em:'🔧', desc:'Mandrin 13mm variable'},
+  {id:7,  name:'Fer à Béton 10mm',      cat:'Matériaux',    code:'QP-007', buy:1200, sell:1600, qty:60,  min:20, em:'⚙️', desc:'Barre ronde 10mm × 12m'},
+  {id:8,  name:'Vis à Bois 4×40',       cat:'Fixation',     code:'QP-008', buy:45,   sell:90,   qty:200, min:50, em:'🔩', desc:'Boîte 200 vis tête fraisée'},
+  {id:9,  name:'Serrure 3 points',      cat:'Sécurité',     code:'QP-009', buy:600,  sell:950,  qty:15,  min:8,  em:'🔐', desc:'Serrure sécurité avec cylindre'},
+  {id:10, name:'Planche Pin 2×4',       cat:'Bois',         code:'QP-010', buy:120,  sell:200,  qty:90,  min:25, em:'🪵', desc:'Pin traité 2×4 pouces 8 pieds'},
+  {id:11, name:'Câble 2.5mm²',          cat:'Électricité',  code:'QP-011', buy:25,   sell:45,   qty:350, min:100,em:'⚡', desc:'Cuivre 2.5mm² au mètre'},
+  {id:12, name:'Robinet Chromé',        cat:'Plomberie',    code:'QP-012', buy:400,  sell:680,  qty:7,   min:10, em:'🚿', desc:'Mélangeur chromé cuisine'},
+  {id:13, name:'Colle Époxy 90ml',      cat:'Quincaillerie',code:'QP-013', buy:120,  sell:220,  qty:35,  min:15, em:'🧴', desc:'Bi-composant haute résistance'},
+  {id:14, name:'Scie à Main 550mm',     cat:'Outils',       code:'QP-014', buy:280,  sell:450,  qty:12,  min:8,  em:'🪚', desc:'Dents trempées 550mm'},
+  {id:15, name:'Pelle Ronde 130cm',     cat:'Jardinage',    code:'QP-015', buy:350,  sell:580,  qty:20,  min:10, em:'⛏️', desc:'Manche bois 130cm'}
+];
 
+const CLIS0 = [
+  {id:1,fn:'Jean',    ln:'BAPTISTE',  ph:'+509 3712-1234',em:'jb@email.com',      ad:'Pétion-Ville',  ty:'retail',  st:'active',  tot:15600},
+  {id:2,fn:'Marie',   ln:'JOSEPH',    ph:'+509 3456-7890',em:'marie.j@gmail.com', ad:'Delmas 32',     ty:'retail',  st:'active',  tot:8200 },
+  {id:3,fn:'Construc',ln:'HAÏTI SA',  ph:'+509 2812-4567',em:'info@ch.com',       ad:'PAP Centre',    ty:'business',st:'active',  tot:125000},
+  {id:4,fn:'Robert',  ln:'PIERRE',    ph:'+509 3890-1234',em:'',                  ad:'Croix-Bouquets',ty:'retail',  st:'active',  tot:4500 },
+  {id:5,fn:'Micheline',ln:'DURAND',   ph:'+509 4123-5678',em:'m.d@mail.com',      ad:'Tabarre',       ty:'retail',  st:'inactive',tot:2100 }
+];
+
+const FOURS0 = [
 function mkSampleSales() {
   const pays=['cash','card','credit'], clis=['Jean BAPTISTE','Marie JOSEPH','Comptoir','Construction HAÏTI SA','Robert PIERRE'];
   const sales=[];
