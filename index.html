@@ -534,25 +534,168 @@ canvas.chart{width:100%!important}
 .inv-tr.fin{font-weight:800;font-size:15px;color:var(--primary);border-top:2px solid var(--primary);border-bottom:none;margin-top:5px;padding-top:9px}
 
 /* ================================================================
-   RESPONSIVE
+   RESPONSIVE — Konplè (Desktop → Tablet → Mobile)
 ================================================================ */
-@media(max-width:1200px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:960px){
-  .pos-wrap{grid-template-columns:1fr}
-  .sidebar{width:var(--sidebar-c)}
-  .main-wrap{margin-left:var(--sidebar-c)}
-  .s-brand,.nav-lbl,.nav-bdg,.u-info,.nav-label-section{opacity:0;width:0;overflow:hidden}
+
+/* ── 1200px : Grand tablet landscape ─────────────────────────── */
+@media(max-width:1200px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-dash{grid-template-columns:1fr}
 }
-@media(max-width:640px){
-  .stats-grid{grid-template-columns:1fr}
-  .grid-2,.form-grid{grid-template-columns:1fr}
-  .tb-search{display:none}
+
+/* ── 1024px : Tablet landscape ───────────────────────────────── */
+@media(max-width:1024px){
+  :root{ --sidebar-w:220px }
+  .pos-wrap{grid-template-columns:1fr 320px}
   .quick-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid-3{grid-template-columns:1fr 1fr}
 }
+
+/* ── 768px : Tablet portrait ─────────────────────────────────── */
+@media(max-width:768px){
+
+  /* Sidebar — devient un drawer overlay */
+  .sidebar{
+    transform:translateX(-100%);
+    width:var(--sidebar-w) !important;
+    box-shadow:none;
+    transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s;
+    z-index:200;
+  }
+  .sidebar.mob-open{
+    transform:translateX(0);
+    box-shadow:var(--sh-lg);
+    width:256px !important;
+  }
+  /* Rétablir labels dans drawer */
+  .sidebar.mob-open .s-brand,
+  .sidebar.mob-open .nav-lbl,
+  .sidebar.mob-open .u-info,
+  .sidebar.mob-open .nav-label-section{ opacity:1; width:auto; overflow:visible; }
+  .sidebar.mob-open .nav-bdg{ opacity:1; width:auto; }
+
+  /* Overlay sombre derrière le drawer */
+  #sidebarOverlay{
+    display:none; position:fixed; inset:0;
+    background:rgba(0,0,0,.45); z-index:199;
+    backdrop-filter:blur(2px);
+  }
+  #sidebarOverlay.on{ display:block; }
+
+  /* Main — prend toute la largeur */
+  .main-wrap{ margin-left:0 !important; }
+  .main-wrap.exp{ margin-left:0 !important; }
+
+  /* Topbar */
+  .tb-search{ display:none }
+  .tb-title{ font-size:14px }
+  .topbar{ padding:0 12px; gap:9px }
+
+  /* Page content */
+  .page-content{ padding:14px }
+
+  /* POS — une colonne, cart en bas */
+  .pos-wrap{
+    grid-template-columns:1fr;
+    grid-template-rows:1fr auto;
+    height:auto;
+  }
+  .pos-left{ min-height:55vh }
+  .cart-panel{
+    position:fixed; bottom:0; left:0; right:0;
+    max-height:0; overflow:hidden;
+    border-radius:var(--r-lg) var(--r-lg) 0 0;
+    box-shadow:0 -8px 32px rgba(0,0,0,.18);
+    transition:max-height .38s cubic-bezier(.4,0,.2,1);
+    z-index:150;
+  }
+  .cart-panel.mob-open{ max-height:88vh; overflow-y:auto }
+
+  /* Bouton flottant panier (mobile) */
+  #cartFab{
+    display:flex; position:fixed; bottom:18px; right:18px;
+    width:58px; height:58px; border-radius:50%;
+    background:linear-gradient(135deg,var(--primary),var(--primary-lt));
+    color:#fff; align-items:center; justify-content:center;
+    box-shadow:0 6px 20px rgba(21,101,192,.45);
+    cursor:pointer; z-index:160; border:none;
+    font-size:22px; transition:var(--tr);
+  }
+  #cartFab .fab-badge{
+    position:absolute; top:4px; right:4px;
+    background:var(--err); color:#fff;
+    width:18px; height:18px; border-radius:50%;
+    font-size:10px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+  #cartFab:hover{ transform:scale(1.08) }
+
+  /* Grilles */
+  .stats-grid{ grid-template-columns:repeat(2,1fr); gap:10px }
+  .grid-2,.grid-3,.grid-dash{ grid-template-columns:1fr }
+  .quick-grid{ grid-template-columns:repeat(2,1fr); gap:9px }
+  .form-grid,.form-grid-3{ grid-template-columns:1fr }
+  .col-2,.col-3{ grid-column:span 1 }
+
+  /* Modals — plein écran sur mobile */
+  .modal-ov{ align-items:flex-end; padding:0 }
+  .modal,.modal-lg,.modal-xl{
+    width:100%; max-width:100%; border-radius:var(--r-lg) var(--r-lg) 0 0;
+    max-height:92vh; overflow-y:auto;
+  }
+
+  /* Login */
+  .login-card{ width:100%; max-width:420px; padding:32px 24px; margin:16px }
+
+  /* Tables horizontalement scrollables */
+  .tbl-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch }
+  thead th{ white-space:nowrap }
+
+  /* Toast */
+  #toastZone{ left:12px; right:12px; top:auto; bottom:80px }
+  .toast{ min-width:0; width:100% }
+}
+
+/* ── 480px : Petit téléphone ──────────────────────────────────── */
+@media(max-width:480px){
+  .stats-grid{ grid-template-columns:1fr }
+  .quick-grid{ grid-template-columns:repeat(2,1fr) }
+  .page-content{ padding:10px }
+  .stat-card{ padding:13px }
+  .stat-val{ font-size:19px }
+  .prod-card{ padding:10px }
+  .prod-emoji{ font-size:24px }
+  .pos-prods{ grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:7px }
+  .login-card{ padding:26px 18px }
+  .login-logo h1{ font-size:19px }
+  .topbar{ padding:0 10px }
+  .page-header{ flex-direction:column; align-items:flex-start; gap:10px }
+  .page-acts{ width:100%; justify-content:flex-end }
+  .card-hd{ flex-wrap:wrap; gap:8px }
+}
+
+/* ── Cacher FAB hors mobile — JS kontwòle l ─────────────────── */
+#cartFab{ display:none }
+
+/* Handle drag panye mobile */
+.cart-mob-handle{
+  display:none; justify-content:center; align-items:center;
+  padding:10px 0 4px; cursor:pointer;
+  background:var(--surface); border-radius:var(--r-lg) var(--r-lg) 0 0;
+}
+.cart-mob-bar{
+  width:42px; height:4px; border-radius:2px; background:var(--g300);
+}
+@media(max-width:768px){
+  .cart-mob-handle{ display:flex }
+}
+
+/* ── Print ───────────────────────────────────────────────────── */
 @media print{
-  .sidebar,.topbar,#toastZone{display:none!important}
-  .main-wrap{margin-left:0!important}
-  .page-content{padding:0!important}
+  .sidebar,.topbar,#toastZone,#cartFab,#sidebarOverlay{ display:none !important }
+  .main-wrap{ margin-left:0 !important }
+  .page-content{ padding:0 !important }
 }
 
 /* ================================================================
@@ -602,7 +745,8 @@ canvas.chart{width:100%!important}
     </button>
     <div id="loginErr" style="display:none;margin-top:10px;padding:9px 13px;background:#FEE2E2;border-radius:var(--r-sm);color:#DC2626;font-size:12.5px;text-align:center"></div>
     <p style="text-align:center;color:var(--g500);font-size:12px;margin-top:18px">
-      <span style="margin-top:5px;display:block">© 2025 QuincaPos Pro v2.0 </span>
+      🔑 <strong>admin</strong> / admin123 &nbsp;|&nbsp; <strong>caissier</strong> / caissier123<br>
+      <span style="margin-top:5px;display:block">© 2025 QuincaPos Pro v2.0 — Supabase</span>
     </p>
   </div>
 </div>
@@ -611,6 +755,15 @@ canvas.chart{width:100%!important}
      MAIN APP
 ================================================================ -->
 <div id="app">
+
+  <!-- OVERLAY MOBILE SIDEBAR -->
+  <div id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+
+  <!-- BOUTON FLOTTANT PANIER (mobile sèlman) -->
+  <button id="cartFab" onclick="toggleMobileCart()" title="Voir le panier" style="display:none">
+    🛒
+    <span class="fab-badge" id="fabBadge" style="display:none">0</span>
+  </button>
 
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
@@ -791,7 +944,11 @@ canvas.chart{width:100%!important}
             <div class="pos-prods" id="posGrid"></div>
           </div>
           <!-- RIGHT: CART -->
-          <div class="cart-panel">
+          <div class="cart-panel" id="cartPanel">
+            <!-- Handle drag mobile -->
+            <div class="cart-mob-handle" onclick="toggleMobileCart()">
+              <div class="cart-mob-bar"></div>
+            </div>
             <div class="cart-hd">
               <div style="display:flex;justify-content:space-between;align-items:center">
                 <div><h3>🛒 Panier</h3><div class="cart-hd-info" id="cartInfo">Facture #0001 · 0 article</div></div>
@@ -1233,6 +1390,44 @@ const SUPA = {
         body: JSON.stringify({ key, value: JSON.stringify(value) })
       });
     } catch(e) { console.warn('Supabase sync err:', e); }
+  },
+
+  // ── Siprime yon ranje nan nenpòt tab ──────────────────────────
+  // Egzanp: SUPA.deleteRow('produits', 'code', 'QP-001')
+  async deleteRow(table, col, val) {
+    try {
+      const r = await fetch(
+        `${SUPA_URL}${table}?${col}=eq.${encodeURIComponent(val)}`,
+        { method: 'DELETE', headers: this._h }
+      );
+      if (!r.ok) console.warn(`Supabase DELETE ${table} err:`, await r.text());
+    } catch(e) { console.warn('Supabase deleteRow err:', e); }
+  },
+
+  // ── Kreye oswa mete ajou yon produit (match sou `code`) ───────
+  async upsertProduit(p) {
+    try {
+      const body = {
+        name       : p.name,
+        categorie  : p.cat,
+        code       : p.code,
+        prix_achat : p.buy,
+        prix_vente : p.sell,
+        stock_qty  : p.qty,
+        stock_min  : p.min  || 10,
+        emoji      : p.em   || '📦',
+        description: p.desc || ''
+      };
+      const r = await fetch(
+        `${SUPA_URL}produits?on_conflict=code`,
+        {
+          method : 'POST',
+          headers: { ...this._h, 'Prefer': 'resolution=merge-duplicates' },
+          body   : JSON.stringify(body)
+        }
+      );
+      if (!r.ok) console.warn('Supabase upsertProduit err:', await r.text());
+    } catch(e) { console.warn('Supabase upsertProduit err:', e); }
   }
 };
 
@@ -1278,6 +1473,12 @@ const CLIS0 = [
 ];
 
 const FOURS0 = [
+  {id:1,nm:'Matériaux Import SA', ct:'Jean-Marc Lam',  ph:'+509 2812-0001',em:'jm@mati.com',  cat:'Matériaux',ad:'Zone Industrielle, PAP',st:'active'},
+  {id:2,nm:'Outils & Co Haiti',   ct:'Pierre Dupont',  ph:'+509 3890-2222',em:'info@oc.ht',   cat:'Outils',   ad:'Delmas 68, PAP',        st:'active'},
+  {id:3,nm:'Plomberie Centrale',  ct:'Lucie Martin',   ph:'+509 4000-3333',em:'lm@plomb.com', cat:'Plomberie',ad:'Pétion-Ville',           st:'active'},
+  {id:4,nm:'Bois & Forêts HT',   ct:'Marc Antoine',   ph:'+509 2345-6789',em:'bois@ht.com',  cat:'Bois',     ad:'Carrefour, HT',          st:'inactive'}
+];
+
 function mkSampleSales() {
   const pays=['cash','card','credit'], clis=['Jean BAPTISTE','Marie JOSEPH','Comptoir','Construction HAÏTI SA','Robert PIERRE'];
   const sales=[];
@@ -1356,12 +1557,70 @@ function showLoginErr(msg){
 }
 
 async function syncFromSupabase(){
-  $('ld-text') && ($('ld-text').textContent='Synchronisation Supabase…');
+  // 1. Eseye chaje depi configuration (cache JSON)
   const rows = await SUPA.get('configuration','?select=key,value');
   if(rows && rows.length){
     rows.forEach(row=>{
       try{ localStorage.setItem('qp_'+row.key, row.value); }catch{}
     });
+  }
+
+  // 2. Si tab produits la vide nan cache → chaje dirèkteman depi tab produits Supabase
+  if(!DB.g('prods') || DB.g('prods').length === 0){
+    const prods = await SUPA.get('produits','?select=*&order=id.asc');
+    if(prods && prods.length){
+      // Konvèti fòma Supabase → fòma app la
+      const mapped = prods.map(p => ({
+        id   : p.id,
+        name : p.name,
+        cat  : p.categorie,
+        code : p.code,
+        buy  : p.prix_achat,
+        sell : p.prix_vente,
+        qty  : p.stock_qty,
+        min  : p.stock_min,
+        em   : p.emoji       || '📦',
+        desc : p.description || ''
+      }));
+      DB.s('prods', mapped);
+    }
+  }
+
+  // 3. Si clients vide → chaje depi tab clients Supabase
+  if(!DB.g('clis') || DB.g('clis').length === 0){
+    const clis = await SUPA.get('clients','?select=*&order=id.asc');
+    if(clis && clis.length){
+      const mapped = clis.map(c => ({
+        id    : c.id,
+        fn    : c.prenom,
+        ln    : c.nom,
+        ph    : c.telephone   || '',
+        em    : c.email       || '',
+        ad    : c.adresse     || '',
+        type  : c.type_client,
+        st    : c.statut,
+        tot   : c.total_achats || 0
+      }));
+      DB.s('clis', mapped);
+    }
+  }
+
+  // 4. Si fournisseurs vide → chaje depi tab fournisseurs Supabase
+  if(!DB.g('fours') || DB.g('fours').length === 0){
+    const fours = await SUPA.get('fournisseurs','?select=*&order=id.asc');
+    if(fours && fours.length){
+      const mapped = fours.map(f => ({
+        id   : f.id,
+        nm   : f.nom,
+        ct   : f.contact  || '',
+        ph   : f.telephone|| '',
+        em   : f.email    || '',
+        cat  : f.categorie|| '',
+        ad   : f.adresse  || '',
+        st   : f.statut
+      }));
+      DB.s('fours', mapped);
+    }
   }
 }
 
@@ -1768,13 +2027,20 @@ function saveProd(){
   const data={name:nm,cat,code:$('pCode').value.trim()||`QP-${String(Date.now()).slice(-5)}`,buy,sell,qty,min:parseInt($('pMinQ').value)||10,em:$('pEmoji').value.trim()||'📦',desc:$('pDesc').value.trim()};
   if(A.editProd){ const i=prods.findIndex(x=>x.id===A.editProd); if(i!==-1) prods[i]={...prods[i],...data}; toast('Produit modifié!','ok'); }
   else { data.id=Math.max(0,...prods.map(x=>x.id))+1; prods.push(data); toast('Produit ajouté!','ok'); }
-  DB.s('prods',prods); closeMod('modProd'); clrProd(); A.editProd=null;
+  DB.s('prods',prods);
+  SUPA.upsertProduit(data); // ← sync tab produits la dirèkteman
+  closeMod('modProd'); clrProd(); A.editProd=null;
   drawProds(); renderPOSGrid(); renderPOSCats(); updStkBadge();
 }
 function delProd(id){
   if(!confirm('Supprimer ce produit?')) return;
-  DB.s('prods',(DB.g('prods')||[]).filter(p=>p.id!==id));
-  drawProds(); renderPOSGrid(); updStkBadge(); toast('Produit supprimé','info');
+  const prods = DB.g('prods') || [];
+  const prod  = prods.find(p => p.id === id);          // jwenn produi a ANVAN siprime
+  const rest  = prods.filter(p => p.id !== id);
+  DB.s('prods', rest);
+  if(prod) SUPA.deleteRow('produits', 'code', prod.code); // ← DELETE sou Supabase
+  drawProds(); renderPOSGrid(); updStkBadge();
+  toast(`"${prod?.name || 'Produit'}" supprimé`, 'info');
 }
 
 /* ================================================================
